@@ -42,7 +42,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .main-nav a:hover { text-decoration: underline; text-underline-offset: 5px; }
 .nav-backdrop { display: none; }
 
-.hero { min-height: 640px; height: 72vh; max-height: 780px; background-size: cover; background-position: center 42%; position: relative; display: flex; align-items: center; overflow: hidden; color: white; }
+.hero { min-height: 640px; height: 72vh; max-height: 780px; background-size: cover; background-position: center 58%; position: relative; display: flex; align-items: center; overflow: hidden; color: white; }
 .hero-shade { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.44); }
 .hero-content { position: relative; z-index: 1; width: min(680px, calc(100% - 64px)); margin-left: max(32px, calc((100% - 1376px) / 2)); }
 .eyebrow { margin: 0 0 14px; font-size: 11px; line-height: 1.2; font-weight: 800; text-transform: uppercase; }
@@ -61,13 +61,16 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .hero-proof { position: absolute; z-index: 1; bottom: 0; right: 0; display: flex; background: white; color: var(--ink); }
 .hero-proof span { padding: 17px 25px; font-size: 11px; font-weight: 800; text-transform: uppercase; border-left: 1px solid var(--line); }
 
-.value-band { background: var(--silver); display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 max(32px, calc((100% - 1376px) / 2)); }
+.value-band { position: relative; isolation: isolate; overflow: hidden; background: #eee7dc; display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 max(32px, calc((100% - 1376px) / 2)); }
+.value-band::before { content: ""; position: absolute; inset: 0; z-index: -1; background: url('/hello-jewelry-hero.jpg') center 48% / cover no-repeat; opacity: .11; filter: saturate(.7); }
 .value-band > div { min-height: 150px; padding: 28px 26px; display: grid; grid-template-columns: 28px 1fr; grid-template-rows: auto auto; gap: 6px 12px; border-right: 1px solid #bfc6c9; align-content: center; }
 .value-band > div:first-child { border-left: 1px solid #bfc6c9; }
 .value-band svg { grid-row: span 2; margin-top: 3px; }
 .value-band strong { font-family: Georgia, serif; font-size: 20px; font-weight: 400; }
 .value-band span { color: #535756; font-size: 12px; line-height: 1.5; }
 .section { max-width: 1440px; margin: 0 auto; padding: 88px 32px; }
+.category-section { position: relative; isolation: isolate; overflow: hidden; background: #fbf8f3; }
+.category-section::after { content: ""; position: absolute; z-index: -1; width: 360px; height: 500px; right: -80px; top: 110px; background: url('/hello-jewelry-hero.jpg') center / cover no-repeat; opacity: .12; filter: saturate(.65); transform: rotate(4deg); }
 .section-heading { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; margin-bottom: 34px; }
 .section-heading h2, .store-solution-copy h2, .wholesale-intro h1, .wholesale-form-section h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
 .section-heading h2 { margin: 0; font-size: 44px; }

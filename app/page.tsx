@@ -16,7 +16,7 @@ export default function Home() {
   const latest = products.filter((product) => product.primaryImage).sort((a, b) => Date.parse(b.createdAt || "") - Date.parse(a.createdAt || "")).slice(0, 8).map(toSummary);
   return (
     <>
-      <section className="hero" style={{ backgroundImage: "url('/media/products/267262/01.jpg')" }}>
+      <section className="hero" style={{ backgroundImage: "url('/hello-jewelry-hero.jpg')" }}>
         <div className="hero-shade" />
         <div className="hero-content">
           <p className="eyebrow">Hello Jewelry Wholesale</p>
