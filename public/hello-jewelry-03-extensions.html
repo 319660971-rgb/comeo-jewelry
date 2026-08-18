@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello Jewelry — Connected HJ Extension Study</title>
+    <style>
+      :root {
+        --ink: #151715;
+        --white: #fff;
+        --soft: #f2f4f3;
+        --line: #dadddb;
+        --muted: #686d69;
+        --steel: #cfd5d2;
+        --lime: #c9ff4d;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--white);
+        font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+        letter-spacing: 0;
+      }
+      a, button { color: inherit; font: inherit; letter-spacing: 0; }
+      a { text-decoration: none; }
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 60px;
+        padding: 0 30px;
+        color: white;
+        background: var(--ink);
+        border-bottom: 1px solid #303330;
+      }
+      .bar__name { font-size: 14px; font-weight: 700; }
+      .bar__links { display: flex; gap: 22px; color: #bfc4c1; font-size: 12px; }
+      .bar__links a:hover { color: white; }
+      .hero {
+        position: relative;
+        min-height: 680px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(390px, .92fr);
+        overflow: hidden;
+        border-bottom: 1px solid var(--line);
+      }
+      .hero__copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 90px max(42px, calc((100vw - 1280px) / 2));
+        padding-right: 70px;
+      }
+      .eyebrow { margin: 0 0 24px; color: var(--muted); font-size: 12px; font-weight: 700; text-transform: uppercase; }
+      h1 { max-width: 720px; margin: 0; font-size: 68px; line-height: 1; font-weight: 500; }
+      .hero__text { max-width: 610px; margin: 30px 0 0; color: var(--muted); font-size: 17px; line-height: 1.65; }
+      .hero__image { position: relative; min-height: 680px; background: #d3c9bc; }
+      .hero__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .hero__image::after { content: ""; position: absolute; inset: 0; background: rgba(16,17,16,.08); }
+      .hero__stamp {
+        position: absolute;
+        right: 34px;
+        bottom: 34px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 19px;
+        color: var(--ink);
+        background: var(--lime);
+        border: 1px solid var(--ink);
+        border-radius: 5px;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .mark { width: 68px; height: 68px; flex: 0 0 auto; color: currentColor; }
+      .mark--sm { width: 34px; height: 34px; }
+      .mark--xs { width: 26px; height: 26px; }
+      .node { fill: var(--lime); stroke: currentColor; }
+      .wordmark { display: inline-flex; align-items: center; gap: 17px; white-space: nowrap; }
+      .wordmark__text { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 46px; line-height: 1; font-weight: 500; }
+      .wordmark--small { gap: 9px; }
+      .wordmark--small .wordmark__text { font-size: 22px; }
+      .wordmark--inverse { color: white; }
+
+      .section { max-width: 1280px; margin: 0 auto; padding: 96px 32px; }
+      .section-head { display: grid; grid-template-columns: 260px 1fr; gap: 50px; margin-bottom: 52px; }
+      .section-head__index { color: var(--muted); font-size: 12px; font-weight: 700; }
+      .section-head h2 { max-width: 720px; margin: 0 0 14px; font-size: 42px; line-height: 1.08; font-weight: 500; }
+      .section-head p { max-width: 720px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
+
+      .variants { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
+      .variant { position: relative; min-height: 420px; padding: 32px; border-right: 1px solid var(--line); }
+      .variant:last-child { border-right: 0; }
+      .variant--selected { background: var(--soft); }
+      .variant__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+      .variant__code { font-size: 13px; font-weight: 700; }
+      .pill { padding: 6px 9px; color: var(--ink); background: var(--lime); border-radius: 3px; font-size: 10px; font-weight: 800; }
+      .variant__mark { min-height: 225px; display: flex; align-items: center; justify-content: center; }
+      .variant__mark svg { width: 128px; height: 128px; }
+      .variant h3 { margin: 0 0 7px; font-size: 20px; }
+      .variant p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+      .lockups { display: grid; grid-template-columns: 1.4fr .6fr; gap: 12px; }
+      .lockup { min-height: 230px; display: flex; align-items: center; justify-content: center; padding: 30px; background: var(--soft); border: 1px solid var(--line); border-radius: 6px; }
+      .lockup--wide { grid-column: 1 / -1; min-height: 300px; }
+      .lockup--dark { color: white; background: var(--ink); border-color: var(--ink); }
+      .lockup--lime { background: var(--lime); border-color: var(--ink); }
+      .stacked { display: flex; flex-direction: column; align-items: center; gap: 17px; }
+      .stacked .wordmark__text { font-size: 36px; }
+      .stacked small { font-size: 11px; font-weight: 700; text-transform: uppercase; }
+
+      .palette-band { background: var(--ink); color: white; }
+      .palette-inner { max-width: 1280px; margin: 0 auto; padding: 90px 32px; }
+      .palette-band .section-head__index, .palette-band .section-head p { color: #aeb5b0; }
+      .swatches { display: grid; grid-template-columns: repeat(4, 1fr); min-height: 220px; }
+      .swatch { display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; color: var(--ink); font-size: 12px; font-weight: 700; }
+      .swatch:nth-child(1) { color: white; background: #151715; border: 1px solid #444844; }
+      .swatch:nth-child(2) { background: #fff; }
+      .swatch:nth-child(3) { background: #cfd5d2; }
+      .swatch:nth-child(4) { background: #c9ff4d; }
+      .swatch small { display: block; margin-top: 6px; opacity: .65; font-weight: 500; }
+
+      .applications { background: var(--soft); border-top: 1px solid var(--line); }
+      .applications__inner { max-width: 1280px; margin: 0 auto; padding: 96px 32px; }
+      .mockups { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; }
+      .mockup { position: relative; overflow: hidden; min-height: 430px; background: white; border: 1px solid var(--line); border-radius: 6px; }
+      .mockup__label { position: absolute; top: 16px; left: 16px; z-index: 4; padding: 7px 9px; color: white; background: var(--ink); border-radius: 3px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+
+      .site-demo { background: white; }
+      .site-demo__nav { display: flex; align-items: center; justify-content: space-between; height: 78px; padding: 0 24px; border-bottom: 1px solid var(--line); }
+      .site-demo__links { display: flex; gap: 17px; color: var(--muted); font-size: 10px; }
+      .site-demo__body { display: grid; grid-template-columns: 1fr 1fr; min-height: 350px; }
+      .site-demo__body img { width: 100%; height: 100%; object-fit: cover; }
+      .site-demo__copy { display: flex; flex-direction: column; justify-content: center; padding: 30px; }
+      .site-demo__copy small { font-size: 10px; font-weight: 700; }
+      .site-demo__copy h3 { margin: 12px 0 16px; font-size: 31px; line-height: 1.08; font-weight: 500; }
+      .site-demo__copy span { width: fit-content; padding: 10px 14px; color: var(--ink); background: var(--lime); border: 1px solid var(--ink); font-size: 10px; font-weight: 700; }
+
+      .packaging-demo { display: grid; place-items: center; background: #cfd5d2; }
+      .jewelry-card { position: relative; width: 245px; height: 305px; padding: 32px; background: white; box-shadow: 0 24px 50px rgba(21,23,21,.18); }
+      .jewelry-card::before, .jewelry-card::after { content: ""; position: absolute; top: 160px; width: 8px; height: 8px; border: 1px solid #aaa; border-radius: 50%; }
+      .jewelry-card::before { left: 73px; }
+      .jewelry-card::after { right: 73px; }
+      .jewelry-card__brand { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; }
+      .jewelry-card__copy { position: absolute; left: 32px; right: 32px; bottom: 28px; color: var(--muted); font-size: 9px; line-height: 1.6; text-transform: uppercase; }
+
+      .avatar-demo { display: grid; grid-template-columns: 1fr 1fr; min-height: 360px; }
+      .avatar-panel { display: grid; place-items: center; padding: 30px; background: white; }
+      .avatar-panel:last-child { color: white; background: var(--ink); }
+      .avatar { display: grid; place-items: center; width: 152px; height: 152px; background: var(--lime); border-radius: 30px; box-shadow: 0 18px 40px rgba(21,23,21,.14); }
+      .avatar .mark { width: 90px; height: 90px; }
+      .avatar-demo small { display: block; margin-top: 18px; color: var(--muted); font-size: 10px; text-align: center; }
+
+      .document-demo { display: grid; place-items: center; background: #e5e8e6; }
+      .invoice { width: 78%; min-height: 330px; padding: 28px; background: white; box-shadow: 0 18px 40px rgba(21,23,21,.12); }
+      .invoice__top { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 24px; border-bottom: 2px solid var(--ink); }
+      .invoice__top strong { font-size: 16px; }
+      .invoice__number { color: var(--muted); font-size: 9px; text-align: right; }
+      .invoice__rows { margin-top: 24px; }
+      .invoice__row { display: grid; grid-template-columns: 1fr 50px 65px; padding: 11px 0; color: var(--muted); border-bottom: 1px solid var(--line); font-size: 9px; }
+      .invoice__total { display: flex; justify-content: space-between; margin-top: 24px; padding: 13px; background: var(--lime); font-size: 10px; font-weight: 700; }
+
+      .message-band { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .message { min-height: 180px; padding: 30px; border-right: 1px solid var(--line); }
+      .message:last-child { border-right: 0; }
+      .message span { display: block; margin-bottom: 34px; color: var(--muted); font-size: 11px; }
+      .message strong { display: block; font-size: 23px; line-height: 1.08; font-weight: 500; }
+
+      .decision { display: grid; grid-template-columns: 1fr 360px; gap: 60px; align-items: center; max-width: 1280px; margin: 0 auto; padding: 96px 32px; }
+      .decision h2 { max-width: 740px; margin: 0 0 20px; font-size: 46px; line-height: 1.05; font-weight: 500; }
+      .decision p { max-width: 700px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
+      .decision__next { padding: 28px; background: var(--lime); border: 1px solid var(--ink); border-radius: 6px; font-size: 14px; line-height: 1.7; }
+
+      @media (max-width: 820px) {
+        .bar { padding: 0 18px; }
+        .bar__links a:not(:last-child) { display: none; }
+        .hero { grid-template-columns: 1fr; min-height: 0; }
+        .hero__copy { padding: 70px 20px; }
+        h1 { font-size: 45px; }
+        .hero__image { min-height: 520px; }
+        .hero__stamp { right: 18px; bottom: 18px; }
+        .section, .applications__inner, .palette-inner { padding: 70px 20px; }
+        .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 36px; }
+        .section-head h2 { font-size: 34px; }
+        .variants { grid-template-columns: 1fr; }
+        .variant { min-height: 360px; border-right: 0; border-bottom: 1px solid var(--line); }
+        .variant:last-child { border-bottom: 0; }
+        .lockups, .mockups { grid-template-columns: 1fr; }
+        .lockup, .lockup--wide { grid-column: 1; min-height: 220px; }
+        .wordmark { gap: 10px; }
+        .wordmark__text { font-size: 29px; }
+        .palette-inner .section-head { color: white; }
+        .swatches { grid-template-columns: 1fr; min-height: 0; }
+        .swatch { min-height: 92px; }
+        .site-demo__body { grid-template-columns: 1fr; }
+        .site-demo__body img { height: 280px; }
+        .site-demo__links { display: none; }
+        .avatar-demo { grid-template-columns: 1fr; }
+        .message-band { grid-template-columns: 1fr 1fr; }
+        .message:nth-child(2) { border-right: 0; }
+        .message:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+        .decision { grid-template-columns: 1fr; gap: 34px; padding: 70px 20px; }
+        .decision h2 { font-size: 36px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="bar">
+      <div class="bar__name">Hello Jewelry / Connected HJ</div>
+      <nav class="bar__links"><a href="#refine">符号细化</a><a href="#system">组合系统</a><a href="#applications">应用延伸</a><a href="/hello-jewelry-logo-concepts.html">返回上一轮</a></nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Selected direction · 03 Connected HJ</p>
+          <h1>把一个符号，延伸成整套批发品牌系统。</h1>
+          <p class="hero__text">连接的 H 与 J 代表货品、买手与市场之间的连接；荧光节点代表快速测试与新机会。这一轮关注的不是装饰，而是它能否在商城、包装、报价和社媒中持续保持识别。</p>
+        </div>
+        <div class="hero__image">
+          <img src="/media/products/267262/01.jpg" alt="Gold stainless steel bracelet on wrist" />
+          <div class="hero__stamp">
+            <svg class="mark mark--sm" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg>
+            CONNECTED HJ / ROUND 02
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="refine">
+        <div class="section-head"><div class="section-head__index">01 / SYMBOL REFINEMENT</div><div><h2>三个同源版本，只调整性格，不推翻概念。</h2><p>重点比较圆润程度、时尚感和 B2B 专业度。A 是最均衡的版本，也是建议继续精修的母版。</p></div></div>
+        <div class="variants">
+          <article class="variant variant--selected">
+            <div class="variant__top"><span class="variant__code">03A · CONNECTED CORE</span><span class="pill">首选</span></div>
+            <div class="variant__mark"><svg viewBox="0 0 72 72" aria-label="Connected Core HJ"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg></div>
+            <h3>平衡、清楚、可缩放</h3><p>H 与 J 共用连接线，在 24px 小尺寸仍能辨认。适合网站、社媒、包装和单色印刷。</p>
+          </article>
+          <article class="variant">
+            <div class="variant__top"><span class="variant__code">03B · CHAIN LINK</span></div>
+            <div class="variant__mark"><svg viewBox="0 0 120 120" aria-label="Chain Link HJ"><path d="M18 28v64M18 60h35M53 28v44c0 17 9 26 25 26 15 0 24-9 24-24V54" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/><path d="M94 22a8 8 0 1 1 0 16 8 8 0 0 1 0-16Z" fill="var(--lime)" stroke="currentColor" stroke-width="3"/></svg></div>
+            <h3>更像链条，更有时尚感</h3><p>弧度和比例更活跃，适合年轻零售渠道；但在单色烫印时，顶部节点略抢注意力。</p>
+          </article>
+          <article class="variant">
+            <div class="variant__top"><span class="variant__code">03C · OPEN FRAME</span></div>
+            <div class="variant__mark"><svg viewBox="0 0 120 120" aria-label="Open Frame HJ"><path d="M99 75v25H20V20h79v25" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M38 40v43M38 61h22M60 40v30c0 10 6 15 15 15 8 0 13-5 13-13" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="99" cy="60" r="7" fill="var(--lime)" stroke="currentColor" stroke-width="3"/></svg></div>
+            <h3>更结构化，更像供应商</h3><p>开放边框表达系统与输出能力，适合展会和 B2B 文件；用于首饰卡时稍显工业。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="system">
+        <div class="section-head"><div class="section-head__index">02 / RESPONSIVE LOCKUPS</div><div><h2>同一套 Logo，按空间自动切换。</h2><p>主标用于网站与展会；竖版用于包装；纯 HJ 用于 favicon、头像、水印和极小尺寸。不是每个地方都硬塞完整品牌名。</p></div></div>
+        <div class="lockups">
+          <div class="lockup lockup--wide"><span class="wordmark"><svg class="mark" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg><span class="wordmark__text">hello jewelry</span></span></div>
+          <div class="lockup lockup--dark"><div class="stacked"><svg class="mark" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg><span class="wordmark__text">hello jewelry</span><small>Wholesale jewelry, made to move.</small></div></div>
+          <div class="lockup lockup--lime"><svg class="mark" viewBox="0 0 72 72" aria-label="HJ icon"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="61" cy="13" r="5" fill="white" stroke="currentColor" stroke-width="2"/></svg></div>
+        </div>
+      </section>
+
+      <section class="palette-band">
+        <div class="palette-inner">
+          <div class="section-head"><div class="section-head__index">03 / COLOR SYSTEM</div><div><h2>Carbon、柔白与 Signal Lime 成为唯一主色。</h2><p>柔白承担大面积内容，Carbon 建立专业度，Signal Lime 只标记“新款、速度与行动”。钢银负责中性背景和分隔；错误与缺货颜色属于系统状态，不进入品牌色板。</p></div></div>
+          <div class="swatches"><div class="swatch">Carbon<small>#151715 · 25%</small></div><div class="swatch">Soft White<small>#FFFFFF / #F2F4F3 · 65%</small></div><div class="swatch">Steel<small>#CFD5D2 · Support</small></div><div class="swatch">Signal Lime<small>#C9FF4D · 10%</small></div></div>
+        </div>
+      </section>
+
+      <section class="applications" id="applications">
+        <div class="applications__inner">
+          <div class="section-head"><div class="section-head__index">04 / REAL APPLICATIONS</div><div><h2>放进真实业务，而不是停在 Logo 展示图。</h2><p>以下全部使用 Hello Jewelry 自有商品图片或可由你控制的载体，不依赖其他品牌素材。</p></div></div>
+          <div class="mockups">
+            <article class="mockup site-demo">
+              <span class="mockup__label">Website header</span>
+              <div class="site-demo__nav"><span class="wordmark wordmark--small"><svg class="mark mark--sm" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg><span class="wordmark__text">hello jewelry</span></span><span class="site-demo__links">NEW IN&nbsp;&nbsp; CATALOG&nbsp;&nbsp; WHOLESALE&nbsp;&nbsp; SELECTION</span></div>
+              <div class="site-demo__body"><img src="/media/products/2672910/01.jpg" alt="A tray of mixed jewelry styles" /><div class="site-demo__copy"><small>STORE-READY ASSORTMENTS</small><h3>More styles.<br/>Smaller tests.<br/>Faster decisions.</h3><span>EXPLORE WHOLESALE</span></div></div>
+            </article>
+            <article class="mockup packaging-demo">
+              <span class="mockup__label">Jewelry card</span>
+              <div class="jewelry-card"><div class="jewelry-card__brand"><svg class="mark mark--sm" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg>hello jewelry</div><div class="jewelry-card__copy">Stainless steel jewelry<br/>Wholesale · Mix & match<br/>hellojewelry.com</div></div>
+            </article>
+            <article class="mockup avatar-demo">
+              <span class="mockup__label">Social & favicon</span>
+              <div class="avatar-panel"><div><div class="avatar"><svg class="mark" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="61" cy="13" r="5" fill="white" stroke="currentColor" stroke-width="2"/></svg></div><small>WhatsApp / Instagram</small></div></div>
+              <div class="avatar-panel"><div><svg class="mark" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg><small>Single-color dark use</small></div></div>
+            </article>
+            <article class="mockup document-demo">
+              <span class="mockup__label">Wholesale quotation</span>
+              <div class="invoice"><div class="invoice__top"><span class="wordmark wordmark--small"><svg class="mark mark--sm" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="node" cx="61" cy="13" r="5" stroke-width="2"/></svg><span class="wordmark__text">hello jewelry</span></span><div class="invoice__number"><strong>QUOTATION</strong><br/>HJ-2026-0815</div></div><div class="invoice__rows"><div class="invoice__row"><span>Mixed stainless steel rings</span><span>24 pcs</span><span>Quoted</span></div><div class="invoice__row"><span>Gold-tone chain bracelets</span><span>18 pcs</span><span>Quoted</span></div><div class="invoice__row"><span>Fresh-design earrings</span><span>30 pcs</span><span>Quoted</span></div></div><div class="invoice__total"><span>MIXED SELECTION</span><span>72 PCS</span></div></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="message-band">
+        <div class="message"><span>01 / CORE OFFER</span><strong>No MOQ</strong></div>
+        <div class="message"><span>02 / BUYING MODE</span><strong>Mix & Match</strong></div>
+        <div class="message"><span>03 / SELLING SPEED</span><strong>Fast Product Testing</strong></div>
+        <div class="message"><span>04 / ASSORTMENT</span><strong>Fresh Designs</strong></div>
+      </section>
+
+      <section class="decision">
+        <div><h2>建议锁定 03A，再做最后一轮精修。</h2><p>03A 的优势是最不挑使用环境：网站上有辨识度，首饰卡上不显笨重，缩小后仍能看出 HJ。下一轮只需要决定字标气质和 Signal Lime 的使用力度，不应再更换核心结构。</p></div>
+        <div class="decision__next"><strong>你下一步只需要判断两件事：</strong><br/>1. HJ 图形是否认可 03A？<br/>2. 字标希望更“时尚”还是更“专业”？<br/><br/>也可以直接说：继续按 03A 落地。</div>
+      </section>
+    </main>
+  </body>
+</html>

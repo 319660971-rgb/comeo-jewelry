@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.data/
+.artifacts/
+*.DS_Store
+coverage/
+*.log
+outputs/**/images/**
+outputs/**/*.xlsx
+outputs/**/*.zip
+outputs/QIFU-2026-08-13 2/

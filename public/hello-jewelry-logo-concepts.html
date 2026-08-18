@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello Jewelry — Logo Concepts</title>
+    <style>
+      :root {
+        --ink: #171817;
+        --muted: #646866;
+        --line: #dfe3e1;
+        --paper: #ffffff;
+        --soft: #f3f5f4;
+        --silver: #d9dfe2;
+        --acid: #c9ff4d;
+        --coral: #ff6248;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+        letter-spacing: 0;
+      }
+      button, a { font: inherit; letter-spacing: 0; }
+      a { color: inherit; }
+
+      .topbar {
+        position: sticky;
+        inset: 0 0 auto;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 58px;
+        padding: 0 32px;
+        color: white;
+        background: var(--ink);
+        border-bottom: 1px solid #303330;
+      }
+      .topbar__title { font-size: 14px; font-weight: 650; }
+      .topbar__note { color: #b9bfbb; font-size: 12px; }
+
+      .intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.55fr);
+        gap: 72px;
+        align-items: end;
+        min-height: 430px;
+        padding: 96px max(32px, calc((100vw - 1280px) / 2));
+        background: var(--soft);
+        border-bottom: 1px solid var(--line);
+      }
+      .eyebrow {
+        margin: 0 0 22px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      h1 {
+        max-width: 820px;
+        margin: 0;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: 62px;
+        line-height: 1.02;
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+      .intro__copy {
+        max-width: 420px;
+        margin: 28px 0 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.65;
+      }
+      .decision {
+        padding: 24px;
+        background: var(--acid);
+        border: 1px solid var(--ink);
+        border-radius: 6px;
+      }
+      .decision strong { display: block; margin-bottom: 8px; font-size: 15px; }
+      .decision p { margin: 0; font-size: 14px; line-height: 1.5; }
+
+      .references {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 32px;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 40px 32px;
+        border-bottom: 1px solid var(--line);
+      }
+      .references h2 { margin: 0; font-size: 14px; }
+      .reference-list { display: flex; flex-wrap: wrap; gap: 10px; }
+      .reference-list a {
+        padding: 9px 13px;
+        color: var(--muted);
+        background: var(--soft);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .reference-list a:hover { color: var(--ink); border-color: var(--ink); }
+
+      .concept {
+        display: grid;
+        grid-template-columns: minmax(230px, 0.32fr) minmax(0, 1fr);
+        gap: 54px;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 88px 32px;
+        border-bottom: 1px solid var(--line);
+      }
+      .concept__meta { position: sticky; top: 88px; align-self: start; }
+      .concept__number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        margin-bottom: 22px;
+        background: var(--ink);
+        color: white;
+        border-radius: 50%;
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .concept--recommended .concept__number { color: var(--ink); background: var(--acid); }
+      .concept h2 { margin: 0 0 8px; font-size: 27px; font-weight: 600; }
+      .concept__tagline { margin: 0 0 20px; color: var(--muted); font-size: 14px; }
+      .concept__description { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
+      .recommend {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 7px 10px;
+        background: var(--acid);
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .specimens {
+        display: grid;
+        grid-template-columns: 1.35fr 0.65fr;
+        gap: 12px;
+      }
+      .specimen {
+        min-height: 168px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px;
+        overflow: hidden;
+        background: var(--soft);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+      }
+      .specimen--main { grid-column: 1 / -1; min-height: 286px; }
+      .specimen--dark { color: white; background: var(--ink); border-color: var(--ink); }
+      .specimen--nav {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        min-height: 74px;
+        padding: 18px 22px;
+        background: white;
+      }
+      .nav-demo { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+      .nav-links { display: flex; gap: 18px; color: var(--muted); font-size: 11px; }
+      .context-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+      .logo-a {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        font-family: "Avenir Next", Avenir, "Helvetica Neue", Arial, sans-serif;
+        font-size: 56px;
+        line-height: 1;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .logo-a__dot { width: 9px; height: 9px; margin-top: 34px; background: var(--coral); border-radius: 50%; }
+      .logo-a--small { gap: 5px; font-size: 23px; }
+      .logo-a--small .logo-a__dot { width: 5px; height: 5px; margin-top: 14px; }
+      .a-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 74px;
+        height: 74px;
+        font-family: "Avenir Next", Avenir, sans-serif;
+        font-size: 27px;
+        font-weight: 600;
+        background: var(--coral);
+        color: white;
+        border-radius: 50%;
+      }
+
+      .logo-b { display: inline-flex; flex-direction: column; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+      .logo-b__main {
+        font-family: Futura, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+        font-size: 52px;
+        font-weight: 700;
+      }
+      .logo-b__sub { margin-top: 12px; font-size: 12px; font-weight: 700; }
+      .logo-b--small .logo-b__main { font-size: 20px; }
+      .logo-b--small .logo-b__sub { display: none; }
+      .b-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 74px;
+        height: 74px;
+        color: var(--ink);
+        background: var(--silver);
+        border: 1px solid currentColor;
+        font-family: Futura, "Avenir Next", sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .logo-c { display: inline-flex; align-items: center; gap: 20px; white-space: nowrap; }
+      .logo-c__type {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: 50px;
+        line-height: 1;
+        font-weight: 500;
+      }
+      .hj-mark { width: 72px; height: 72px; flex: 0 0 auto; color: currentColor; }
+      .hj-mark .accent { fill: var(--acid); stroke: var(--ink); }
+      .specimen--dark .hj-mark .accent { stroke: white; }
+      .logo-c--small { gap: 9px; }
+      .logo-c--small .logo-c__type { font-size: 22px; }
+      .logo-c--small .hj-mark { width: 31px; height: 31px; }
+
+      .logo-d { display: inline-flex; align-items: center; gap: 24px; white-space: nowrap; }
+      .seal {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 78px;
+        height: 78px;
+        border: 1.5px solid currentColor;
+        border-radius: 50%;
+        font-family: Baskerville, Georgia, serif;
+        font-size: 28px;
+        font-weight: 600;
+      }
+      .logo-d__type { display: flex; flex-direction: column; font-family: Baskerville, Georgia, serif; line-height: 0.88; text-transform: uppercase; }
+      .logo-d__hello { font-size: 30px; }
+      .logo-d__jewelry { font-size: 47px; }
+      .logo-d--small { gap: 10px; }
+      .logo-d--small .seal { width: 30px; height: 30px; font-size: 11px; }
+      .logo-d--small .logo-d__hello { display: none; }
+      .logo-d--small .logo-d__jewelry { font-size: 21px; }
+
+      .verdict {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+        gap: 64px;
+        padding: 88px max(32px, calc((100vw - 1280px) / 2));
+        background: var(--ink);
+        color: white;
+      }
+      .verdict h2 { margin: 0 0 18px; font-size: 38px; font-weight: 500; }
+      .verdict p { max-width: 720px; margin: 0; color: #c5cac7; font-size: 16px; line-height: 1.7; }
+      .verdict__code { align-self: center; padding: 24px; color: var(--ink); background: var(--acid); border-radius: 6px; font-size: 14px; line-height: 1.6; }
+
+      @media (max-width: 800px) {
+        .topbar { padding: 0 18px; }
+        .topbar__note { display: none; }
+        .intro { grid-template-columns: 1fr; gap: 36px; min-height: 0; padding: 68px 20px; }
+        h1 { font-size: 42px; }
+        .references { grid-template-columns: 1fr; gap: 18px; padding: 32px 20px; }
+        .concept { grid-template-columns: 1fr; gap: 32px; padding: 62px 20px; }
+        .concept__meta { position: static; }
+        .specimens { grid-template-columns: 1fr; }
+        .specimen, .specimen--main, .specimen--nav { grid-column: 1; }
+        .specimen--main { min-height: 220px; padding: 22px; }
+        .logo-a { gap: 7px; font-size: 36px; }
+        .logo-a__dot { width: 7px; height: 7px; margin-top: 22px; }
+        .logo-b__main { font-size: 32px; }
+        .logo-c { gap: 11px; }
+        .logo-c__type { font-size: 30px; }
+        .hj-mark { width: 46px; height: 46px; }
+        .logo-d { gap: 12px; }
+        .seal { width: 52px; height: 52px; font-size: 18px; }
+        .logo-d__hello { font-size: 19px; }
+        .logo-d__jewelry { font-size: 30px; }
+        .nav-links { display: none; }
+        .verdict { grid-template-columns: 1fr; gap: 34px; padding: 64px 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__title">Hello Jewelry / Logo direction study</div>
+      <div class="topbar__note">Concept board · Existing storefront unchanged</div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">Brand identity · Round 01</p>
+          <h1>不是换一个字体，而是建立能被记住的品牌符号。</h1>
+          <p class="intro__copy">四套方案分别测试亲和力、批发专业度、品牌识别和包装延展。全部保留 Hello Jewelry 的英文名称，但彻底去掉原来“粗体 hello + 斜体 jewelry”的拼接感。</p>
+        </div>
+        <aside class="decision">
+          <strong>建议优先看 03</strong>
+          <p>它既有独立图标，也没有过度奢侈品化，最适合“款式丰富、无 MOQ、支持混批、整店输出”的国际 B2B 定位。</p>
+        </aside>
+      </section>
+
+      <section class="references">
+        <h2>参考坐标</h2>
+        <div class="reference-list">
+          <a href="https://heyharper.com/" target="_blank" rel="noreferrer">Hey Harper · 亲和小写</a>
+          <a href="https://www.vitalydesign.com/" target="_blank" rel="noreferrer">Vitaly · 工业现代</a>
+          <a href="https://vacier.com/" target="_blank" rel="noreferrer">Vacier · 北欧克制</a>
+          <a href="https://www.bohomoon.com/" target="_blank" rel="noreferrer">Bohomoon · 强识别度</a>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="concept__meta">
+          <span class="concept__number">01</span>
+          <h2>Friendly Modern</h2>
+          <p class="concept__tagline">亲和现代 / 轻零售感</p>
+          <p class="concept__description">全部使用同一套现代小写字形，用珊瑚红圆点制造记忆点。比现在更年轻、好接近，适合 Instagram 和新兴买手店，但 B2B 专业感相对弱一些。</p>
+        </div>
+        <div class="specimens">
+          <div class="specimen specimen--main">
+            <span class="logo-a">hello jewelry<span class="logo-a__dot"></span></span>
+          </div>
+          <div class="specimen specimen--dark">
+            <span class="logo-a">hello jewelry<span class="logo-a__dot"></span></span>
+          </div>
+          <div class="specimen"><span class="a-icon">hj</span></div>
+          <div class="specimen specimen--nav">
+            <div class="nav-demo"><span class="logo-a logo-a--small">hello jewelry<span class="logo-a__dot"></span></span><span class="nav-links">NEW IN&nbsp;&nbsp; CATALOG&nbsp;&nbsp; WHOLESALE</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="concept__meta">
+          <span class="concept__number">02</span>
+          <h2>Export House</h2>
+          <p class="concept__tagline">国际批发 / 可靠清晰</p>
+          <p class="concept__description">更有秩序的全大写字标，副标题直接交代 Wholesale Jewelry。它在报价单、展会背景墙和外箱标签上非常稳，优势是专业，代价是时尚个性略弱。</p>
+        </div>
+        <div class="specimens">
+          <div class="specimen specimen--main">
+            <span class="logo-b"><span class="logo-b__main">Hello Jewelry</span><span class="logo-b__sub">Wholesale stainless steel jewelry</span></span>
+          </div>
+          <div class="specimen specimen--dark">
+            <span class="logo-b"><span class="logo-b__main">Hello Jewelry</span><span class="logo-b__sub">Wholesale stainless steel jewelry</span></span>
+          </div>
+          <div class="specimen"><span class="b-icon">HJ</span></div>
+          <div class="specimen specimen--nav">
+            <div class="nav-demo"><span class="logo-b logo-b--small"><span class="logo-b__main">Hello Jewelry</span><span class="logo-b__sub">Wholesale</span></span><span class="nav-links">NEW IN&nbsp;&nbsp; CATALOG&nbsp;&nbsp; WHOLESALE</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="concept concept--recommended" id="concept-03">
+        <div class="concept__meta">
+          <span class="concept__number">03</span>
+          <h2>Connected HJ</h2>
+          <p class="concept__tagline">独立符号 / 首选方向</p>
+          <p class="concept__description">H 与 J 共用一条横向连接，像供应链、混批组合，也像首饰扣件。荧光绿圆点延续网站强调色，可单独作为浏览器图标、WhatsApp 头像和包装烫印。</p>
+          <span class="recommend">RECOMMENDED</span>
+        </div>
+        <div class="specimens">
+          <div class="specimen specimen--main">
+            <span class="logo-c">
+              <svg class="hj-mark" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="accent" cx="61" cy="13" r="5" stroke-width="2"/></svg>
+              <span class="logo-c__type">hello jewelry</span>
+            </span>
+          </div>
+          <div class="specimen specimen--dark">
+            <span class="logo-c">
+              <svg class="hj-mark" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="accent" cx="61" cy="13" r="5" stroke-width="2"/></svg>
+              <span class="logo-c__type">hello jewelry</span>
+            </span>
+          </div>
+          <div class="specimen">
+            <svg class="hj-mark" viewBox="0 0 72 72" aria-label="HJ monogram"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="accent" cx="61" cy="13" r="5" stroke-width="2"/></svg>
+          </div>
+          <div class="specimen specimen--nav">
+            <div class="nav-demo"><span class="logo-c logo-c--small"><svg class="hj-mark" viewBox="0 0 72 72" aria-hidden="true"><path d="M13 13v46M13 36h24M37 13v33c0 9 5 14 13 14 7 0 11-4 11-11" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle class="accent" cx="61" cy="13" r="5" stroke-width="2"/></svg><span class="logo-c__type">hello jewelry</span></span><span class="nav-links">NEW IN&nbsp;&nbsp; CATALOG&nbsp;&nbsp; WHOLESALE</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="concept">
+        <div class="concept__meta">
+          <span class="concept__number">04</span>
+          <h2>Maker's Seal</h2>
+          <p class="concept__tagline">品牌印章 / 精品感</p>
+          <p class="concept__description">将 HJ 做成珠宝制造商印记，搭配更有编辑感的两行字标。它适合首饰卡、绒布袋和礼盒，但整体更偏精品品牌，可能会让“无 MOQ、支持混批、快速测款”的效率感变弱。</p>
+        </div>
+        <div class="specimens">
+          <div class="specimen specimen--main"><span class="logo-d"><span class="seal">HJ</span><span class="logo-d__type"><span class="logo-d__hello">Hello</span><span class="logo-d__jewelry">Jewelry</span></span></span></div>
+          <div class="specimen specimen--dark"><span class="logo-d"><span class="seal">HJ</span><span class="logo-d__type"><span class="logo-d__hello">Hello</span><span class="logo-d__jewelry">Jewelry</span></span></span></div>
+          <div class="specimen"><span class="seal">HJ</span></div>
+          <div class="specimen specimen--nav"><div class="nav-demo"><span class="logo-d logo-d--small"><span class="seal">HJ</span><span class="logo-d__type"><span class="logo-d__hello">Hello</span><span class="logo-d__jewelry">Jewelry</span></span></span><span class="nav-links">NEW IN&nbsp;&nbsp; CATALOG&nbsp;&nbsp; WHOLESALE</span></div></div>
+        </div>
+      </section>
+
+      <section class="verdict">
+        <div>
+          <h2>我的判断：先深化 03。</h2>
+          <p>它不像零售饰品店的通用字体 Logo，也不会显得像传统工厂目录。独立 HJ 符号能解决手机导航、favicon、社媒头像和包装上的统一识别；完整字标仍然足够轻，能让商品图片成为主角。</p>
+        </div>
+        <div class="verdict__code">回复一个编号即可：<br><strong>01 / 02 / 03 / 04</strong><br>也可以说，例如：“03 的图标 + 01 的字体”。</div>
+      </section>
+    </main>
+  </body>
+</html>

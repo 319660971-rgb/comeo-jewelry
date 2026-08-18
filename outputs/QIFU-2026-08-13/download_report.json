@@ -1,0 +1,18 @@
+{
+  "exportedAt": "2026-08-14T04:06:47.171Z",
+  "source": "https://yiwuqifu.com",
+  "activeProductsReported": 733,
+  "productsExported": 733,
+  "productDetailFailures": [],
+  "categoriesExported": 66,
+  "variantsExported": 8919,
+  "uniqueImagesFound": 7277,
+  "imagesDownloaded": 7277,
+  "imageFailures": [],
+  "exchangeRate": {
+    "usdToCny": 6.757039,
+    "cnyToUsd": 0.1479938180022344,
+    "source": "live",
+    "updatedAt": null
+  }
+}
