@@ -1,11 +1,9 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
 
 export function AccessForm({ destination }: { destination: string }) {
-  const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -16,7 +14,7 @@ export function AccessForm({ destination }: { destination: string }) {
     const data = await response.json();
     if (!response.ok) { setError(data.error || "Unable to unlock the catalog."); setLoading(false); return; }
     window.localStorage.setItem("hello-jewelry-contact", JSON.stringify(payload));
-    router.push(destination.startsWith("/") ? destination : "/catalog"); router.refresh();
+    window.location.assign(destination.startsWith("/") ? destination : "/catalog");
   }
   return <form onSubmit={submit} className="access-form">
     <div className="form-grid"><label><span>Your name</span><input name="name" required autoComplete="name" /></label><label><span>Company / store</span><input name="company" required autoComplete="organization" /></label><label><span>Country / region</span><input name="country" required autoComplete="country-name" /></label><label><span>WhatsApp number</span><input name="whatsapp" required inputMode="tel" placeholder="+1 555 000 0000" autoComplete="tel" /></label><label className="full"><span>Email <small>Optional</small></span><input name="email" type="email" autoComplete="email" /></label></div>

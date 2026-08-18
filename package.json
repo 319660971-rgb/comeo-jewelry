@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "latest",
-    "@vercel/blob": "^2.8.0",
     "lucide-react": "latest",
     "next": "latest",
     "react": "latest",
